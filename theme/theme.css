@@ -1,6 +1,11 @@
 /* Modern Jellyfin Theme CSS */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
+/* Force theme application */
+html, body, #app, .backgroundContainer, .mainAnimatedPages, .skinBody {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%) !important;
+}
+
 :root {
     --primary-color: #00d4ff;
     --secondary-color: #9d4edd;
@@ -72,23 +77,17 @@ body, html {
     color: var(--text-primary);
 }
 
-/* Header */
-.header, .skinHeader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background: rgba(10, 10, 15, 0.85);
-    backdrop-filter: var(--blur-md) saturate(180%);
-    -webkit-backdrop-filter: var(--blur-md) saturate(180%);
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    padding: 0 2rem;
-    z-index: 100;
-    transition: var(--transition-normal);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+/* Header - Updated for Jellyfin's actual structure */
+.skinHeader {
+    background: rgba(10, 10, 15, 0.85) !important;
+    backdrop-filter: var(--blur-md) saturate(180%) !important;
+    -webkit-backdrop-filter: var(--blur-md) saturate(180%) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.skinHeader.semiTransparent {
+    background-color: rgba(10, 10, 15, 0.85) !important;
 }
 
 .back-button {
@@ -137,8 +136,8 @@ body, html {
     margin-left: 3rem;
 }
 
-.nav-item, .navMenuOption {
-    color: var(--text-secondary);
+.navMenuOption {
+    color: var(--text-secondary) !important;
     text-decoration: none;
     font-weight: 500;
     transition: var(--transition-normal);
@@ -147,9 +146,14 @@ body, html {
     border-radius: 8px;
 }
 
-.nav-item:hover, .nav-item.active, .navMenuOption:hover {
-    color: var(--primary-color);
-    background: rgba(0, 212, 255, 0.08);
+.navMenuOption:hover {
+    color: var(--primary-color) !important;
+    background: rgba(0, 212, 255, 0.08) !important;
+}
+
+.navMenuOption.navMenuOption-selected {
+    color: var(--primary-color) !important;
+    background: rgba(0, 212, 255, 0.1) !important;
 }
 
 .nav-item.active::after {
@@ -402,25 +406,26 @@ body, html {
     color: #9d4edd;
 }
 
-/* Media Grid */
-.media-grid, .itemsContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-    padding: 0 2rem;
+/* Media Grid - Updated for Jellyfin structure */
+.itemsContainer {
+    background: transparent !important;
 }
 
-.media-card, .card, .cardBox {
-    background: var(--card-bg);
-    border-radius: 16px;
+.itemsContainer .card {
+    background: transparent !important;
+}
+
+.cardBox {
+    background: var(--card-bg) !important;
+    border-radius: 16px !important;
     overflow: hidden;
     transition: var(--transition-slow);
     cursor: pointer;
-    border: 1px solid var(--border-color);
-    backdrop-filter: var(--blur-sm);
-    -webkit-backdrop-filter: var(--blur-sm);
+    border: 1px solid var(--border-color) !important;
+    backdrop-filter: var(--blur-sm) !important;
+    -webkit-backdrop-filter: var(--blur-sm) !important;
     position: relative;
+    box-shadow: var(--shadow-md) !important;
 }
 
 .media-card:hover, .card:hover, .cardBox:hover {
@@ -1054,9 +1059,37 @@ body, html {
     }
 }
 
-/* Custom Jellyfin Overrides */
-.backgroundContainer {
-    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+/* Custom Jellyfin Overrides - More specific */
+.detailPagePrimaryContainer {
+    background: transparent !important;
+}
+
+.detailPageSecondaryContainer {
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: var(--blur-sm) !important;
+    -webkit-backdrop-filter: var(--blur-sm) !important;
+    border-radius: 16px !important;
+    padding: 2rem !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* Override default text colors */
+.cardText-first, .cardText-secondary, .cardText {
+    color: var(--text-primary) !important;
+}
+
+/* Fix button styles in Jellyfin */
+.paper-icon-button-light, .btnPlay, .fab {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: var(--blur-sm) !important;
+    -webkit-backdrop-filter: var(--blur-sm) !important;
+    border: 1px solid var(--border-color) !important;
+    transition: var(--transition-normal) !important;
+}
+
+.paper-icon-button-light:hover, .btnPlay:hover {
+    background: var(--primary-color) !important;
+    transform: scale(1.1) !important;
 }
 
 .cardOverlayButton {
