@@ -1,11 +1,7 @@
-/* Modern Jellyfin Theme - Glassmorphism Style */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 /* Global Variables */
 :root {
-  --primary-color: #00d4ff;
-  --secondary-color: #9d4edd;
-  --accent-color: #f5576c;
   --bg-color: #18181849;
   --blur: blur(16px) saturate(180%);
   --border-color: linear-gradient(45deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 41%, rgba(255, 255, 255, 0.1) 57%, rgba(255, 255, 255, 0.3) 100%);
@@ -22,23 +18,17 @@ html {
   padding: 0;
 }
 
-/* Dark gradient background */
-html, body {
-  background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%) !important;
-  color: #ffffff;
-}
-
 /* Elements with transparency and blur effects */
 .skinHeader.semiTransparent,
 .skinHeader,
 .mainDrawer,
 .actionSheet,
-.dialog,
 select:enabled,
 option {
   background-color: var(--bg-color);
   backdrop-filter: var(--blur) !important;
   -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+
 }
 
 /* Border styling for certain elements */
@@ -56,7 +46,6 @@ option {
   border-right: 0;
   border-top: 0;
   border-radius: 5px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Form elements */
@@ -66,30 +55,23 @@ option {
   border-width: 1px;
 }
 
-/* Card styles with glassmorphism */
-.cardBox {
-  background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
-              var(--border-color) border-box;
-  border: 1px solid transparent;
-  border-radius: 15px;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
-  padding: 25px;
-  transition: transform 0.3s ease-in-out;
+/* Hidden elements */
+.selectVideoContainer {
+  display: none !important;
 }
 
-.itemsContainer > .card > .cardBox:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 212, 255, 0.3);
-}
-
-/* Card image styling */
-.cardImageContainer {
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
-}
-
-.cardBox:not(.visualCardBox) .cardPadder {
-  background-color: #00000000;
+/* Style for .skinHeader-withBackground.osdHeader */
+.skinHeader-withBackground.osdHeader {
+  border: 0;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background: linear-gradient(180deg, hsla(0, 0%, 6%, .75), hsla(0, 0%, 6%, 0));
+  color: #eee;
+  height: 7.5em;
+  pointer-events: none;
+  position: relative;
+  transition: opacity .3sease-out;
+  z-index: 1;
 }
 
 /* Overlay elements */
@@ -103,6 +85,16 @@ option {
   background-color: var(--transparent-bg);
 }
 
+/* Make cardOverlayContainer itemAction circular */
+.cardOverlayContainer .itemAction {
+  border-radius: 50% !important;
+  width: 48px !important;
+  height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 /* List and transition effects */
 .listItem {
   transition: 0.3s all ease-in-out;
@@ -114,93 +106,39 @@ option {
   backdrop-filter: var(--blur);
 }
 
+/* Card styles */
+.cardBox {
+  background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+              var(--border-color) border-box;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  padding: 25px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.itemsContainer > .card > .cardBox:hover {
+  transform: translateY(-5px);
+}
+
 /* Text styles */
 .cardText {
   font-size: large;
   padding: 2%;
-  color: #ffffff;
-}
-
-.cardText-first {
-  color: #ffffff;
-  font-weight: 600;
 }
 
 .cardText-secondary {
   font-size: small;
-  color: rgba(255, 255, 255, 0.7);
 }
 
-/* Navigation menu */
-.navMenuOption {
-  color: rgba(255, 255, 255, 0.7);
-  transition: 0.3s all ease-in-out;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
+/* Margin adjustments for overflow elements */
+.overflowBackdropCard[data-index="0"],
+.overflowPortraitCard[data-index="0"],
+.overflowSquareCard[data-index="0"] {
+  margin-left: 1.5vw;
 }
 
-.navMenuOption:hover {
-  background-color: #00a5dc28;
-  color: var(--primary-color);
-}
-
-.navMenuOption.navMenuOption-selected {
-  background-color: rgba(0, 212, 255, 0.15);
-  color: var(--primary-color);
-}
-
-/* Status indicators */
-.countIndicator,
-.fullSyncIndicator,
-.mediaSourceIndicator,
-.playedIndicator {
-  backdrop-filter: var(--blur) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
-  background-color: var(--indicator-bg) !important;
-  box-shadow: none;
-}
-
-/* Hover effects for menu options */
-.actionSheetMenuItem:hover {
-  background-color: #00a5dc28;
-}
-
-/* Floating action button (FAB) for cards */
-.cardOverlayFab-primary {
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background: linear-gradient(rgba(32, 32, 32, 0.1), rgba(32, 32, 32, 0.1)) padding-box,
-              var(--border-color) border-box;
-  background-color: rgba(0, 164, 220, 0.4);
-  backdrop-filter: var(--blur);
-  border: 2px solid transparent;
-}
-
-.cardOverlayFab-primary:hover {
-  background: linear-gradient(rgba(0, 164, 220, 0.1), rgba(0, 164, 220, 0.1)) padding-box,
-              var(--border-color) border-box;
-}
-
-/* Progress bars */
-.itemProgressBarForeground {
-  background-color: #00a5dc93;
-  border-radius: 10px;
-  z-index: 1;
-}
-
-.innerCardFooter > .itemProgressBar {
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  backdrop-filter: var(--blur);
-  background-color: #18181849;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  margin-left: 20px;
-  overflow: hidden;
-  padding: 5px;
-  position: relative;
-  right: 10px;
-}
-
-/* Detail page styling */
+/* Primary content styling */
 .detailPagePrimaryContainer {
   background-color: var(--transparent-bg);
   display: inline-table;
@@ -209,6 +147,7 @@ option {
   z-index: 2;
 }
 
+/* Layout adjustments for desktop */
 .layout-desktop .detailPageContent {
   padding-left: 5%;
 }
@@ -256,6 +195,7 @@ html.preload.layout-desktop {
 }
 
 .layout-desktop .backgroundContainer {
+  background: url("https://raw.githubusercontent.com/alexyle/jellyfin-theme/main/glassmorphism/mask.png");
   background-size: cover;
   height: 100vh;
   margin-left: 20%;
@@ -267,10 +207,82 @@ html.preload.layout-desktop {
   margin-top: -65vh;
 }
 
+/* Hide unnecessary elements */
+.layout-desktop .detailImageContainer .card,
+.layout-desktop .itemTags,
+.layout-desktop .itemName.originalTitle {
+  display: none;
+}
+
+.layout-desktop .itemName,
+.layout-mobile .itemName {
+  font-weight: normal;
+}
+
+.layout-desktop a.overview-expand.emby-button {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Status indicators */
+.countIndicator,
+.fullSyncIndicator,
+.mediaSourceIndicator,
+.playedIndicator {
+  backdrop-filter: var(--blur) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  background-color: var(--indicator-bg) !important;
+  box-shadow: none;
+}
+
+
+/* Hover effects for menu options */
+.actionSheetMenuItem:hover,
+.navMenuOption:hover {
+  background-color: #00a5dc28;
+}
+
+/* Floating action button (FAB) for cards */
+.cardOverlayFab-primary {
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background: linear-gradient(rgba(32, 32, 32, 0.1), rgba(32, 32, 32, 0.1)) padding-box,
+              var(--border-color) border-box;
+  background-color: rgba(0, 164, 220, 0.4);
+  backdrop-filter: var(--blur);
+  border: 2px solid transparent;
+}
+
+.cardOverlayFab-primary:hover {
+  background: linear-gradient(rgba(0, 164, 220, 0.1), rgba(0, 164, 220, 0.1)) padding-box,
+              var(--border-color) border-box;
+}
+
+/* Progress bars and inner card styles */
+.itemProgressBarForeground {
+  background-color: #00a5dc93;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.innerCardFooter > .itemProgressBar {
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: var(--blur);
+  background-color: #18181849;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  overflow: hidden;
+  padding: 5px;
+  position: relative;
+  right: 10px;
+}
+
+
+
 /* Headings */
-h1, h2, h3 {
+h2 {
   font-weight: 700;
-  color: #ffffff;
 }
 
 /* Desktop play button styles */
@@ -309,97 +321,25 @@ h1, h2, h3 {
   border-radius: 4em;
 }
 
+#btnShutdown {
+  background-color: #bb4a4a;
+}
+
 .paperList {
   border-radius: 1em;
 }
+
 
 .sliderContainer {
   height: 1em;
 }
 
-/* Buttons */
-.button-submit,
-.emby-button-submit,
-.btnPlay {
-  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-  color: white !important;
-  border: none;
-  border-radius: 12px;
-  padding: 0.8rem 1.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+
+.cardBox:not(.visualCardBox) .cardPadder{
+  background-color: #00000000;
 }
 
-.button-submit:hover,
-.emby-button-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
-}
-
-/* Input fields */
-.emby-input,
-.emby-textarea {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  color: #ffffff;
-  padding: 0.8rem 1.2rem;
-  transition: all 0.3s ease;
-}
-
-.emby-input:focus,
-.emby-textarea:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
-}
-
-/* Section titles */
-.sectionTitle {
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-/* Page background */
-.mainAnimatedPages {
-  background: transparent;
-}
-
-/* Dialog styling */
-.dialog {
-  background: rgba(20, 20, 30, 0.95) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Loading spinner */
-.mdl-spinner {
-  border-color: var(--primary-color);
-}
-
-/* Override more specific Jellyfin styles */
-.layout-desktop .detailRibbon {
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-/* Fix for item details */
-.layout-desktop .itemName {
-  color: #ffffff;
-  font-weight: 700;
-}
-
-.layout-desktop .itemMiscInfo {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* Ensure all text is visible */
-.detailPagePrimaryContainer * {
-  color: #ffffff !important;
+.cardImageContainer {
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
 }
